@@ -171,7 +171,7 @@ void rtw_add_bcn_ie(_adapter *padapter, WLAN_BSSID_EX *pnetwork, u8 index, u8 *d
 	u8	bmatch = _FALSE;
 	u8	*pie = pnetwork->IEs;
 	u8	*p = NULL, *dst_ie = NULL, *premainder_ie = NULL, *pbackup_remainder_ie = NULL;
-	u32	i, offset, ielen, ie_offset, remainder_ielen = 0;
+	u32	i, offset, ielen = 0, ie_offset, remainder_ielen = 0;
 
 	for (i = sizeof(NDIS_802_11_FIXED_IEs); i < pnetwork->IELength;) {
 		pIE = (PNDIS_802_11_VARIABLE_IEs)(pnetwork->IEs + i);
@@ -1784,7 +1784,7 @@ chbw_decision:
 				, pdvobj->padapters[i]->mlmeextpriv.cur_channel
 				, pdvobj->padapters[i]->mlmeextpriv.cur_bwmode
 				, pdvobj->padapters[i]->mlmeextpriv.cur_ch_offset
-				, ht_option);
+				, ht_option, 0);
 		}
 	}
 #endif /* defined(CONFIG_IOCTL_CFG80211) && (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 5, 0)) */

@@ -1,23 +1,15 @@
 EXTRA_CFLAGS += $(USER_EXTRA_CFLAGS)
 
 ##################### Optimization Flags ##########################
-#EXTRA_CFLAGS += -O1
 EXTRA_CFLAGS += -O2
-#EXTRA_CFLAGS += -O3
 ##################### Compile-time Warnings #######################
-#EXTRA_CFLAGS += -Wall
-#EXTRA_CFLAGS += -Wextra
-#EXTRA_CFLAGS += -Werror
-#EXTRA_CFLAGS += -pedantic
-#EXTRA_CFLAGS += -Wshadow -Wpointer-arith -Wcast-qual -Wstrict-prototypes -Wmissing-prototypes
-#EXTRA_CFLAGS += -Wno-uninitialized
 EXTRA_CFLAGS += -Wno-unused-variable
 EXTRA_CFLAGS += -Wno-unused-value
 EXTRA_CFLAGS += -Wno-unused-label
 EXTRA_CFLAGS += -Wno-unused-parameter
 EXTRA_CFLAGS += -Wno-unused-function
 EXTRA_CFLAGS += -Wno-unused
-EXTRA_CFLAGS += -Wno-incompatible-pointer-types
+#EXTRA_CFLAGS += -Wno-vla
 EXTRA_CFLAGS += -Wno-date-time
 
 GCC_VER_49 := $(shell echo `$(CC) -dumpversion | cut -f1-2 -d.` \>= 4.9 | bc )
@@ -130,6 +122,8 @@ CONFIG_RTW_SDIO_PM_KEEP_POWER = y
 ###################### MP HW TX MODE FOR VHT #######################
 CONFIG_MP_VHT_HW_TX_MODE = n
 ###################### Platform Related #######################
+CONFIG_PLATFORM_ARM_RPI = n
+CONFIG_PLATFORM_ARM_AARCH64 = n
 CONFIG_PLATFORM_I386_PC = y
 CONFIG_PLATFORM_ANDROID_X86 = n
 CONFIG_PLATFORM_ANDROID_INTEL_X86 = n
@@ -1303,6 +1297,7 @@ endif
 
 ifeq ($(CONFIG_PLATFORM_ARM_AARCH64), y)
 EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
+EXTRA_CFLAGS += -DCONFIG_IOCTL_CFG80211 -DRTW_USE_CFG80211_STA_EVENT
 ARCH := arm64
 CROSS_COMPILE :=
 KVER  := $(shell uname -r)
